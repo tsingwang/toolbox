@@ -1,0 +1,178 @@
+set nocompatible    " not completely compatible with vi
+set encoding=utf-8  " Vim used internally
+set fileencoding=uft-8
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+set fileformat=unix
+set mouse=a         " enable the use of mouse clicks all mode
+set showcmd         " display incomplete command in the lower right corner
+set number          " display line numbers
+set ruler           " display the cursor position in the lower right corner
+set hlsearch        " highlight searches
+set ignorecase      " ignore case when searching
+set incsearch       " incremental searching
+set backspace=indent,eol,start  " allow backspacing over everything in insert mode
+set history=512     " keep 512 lines of command line history
+set nobackup        " not keep a backup file
+set autowriteall
+set vb t_vb=        " close the bells when error and warning
+"set nowrap         " not wrap if a line is too long
+set linebreak       " don't wrap textin the middle of a word
+"set scrolloff=3     " Keep 3 context lines above and below the cursor
+set autoindent
+set tabstop=4       " numbers of spaces of tab character
+set shiftwidth=4    " numbers of spaces to auto indent, >>
+set softtabstop=4   " <Tab> key
+set expandtab       " use 4 spaces to instead of a tab
+set colorcolumn=80
+set list            " TAB字符可见
+"set listchars=tab:>-,trail:-   " TAB会被显示成 ">---" 行尾多余的空白字符显示成 "-"
+set listchars=tab:\ \ ,trail:-
+" 设置+寄存器，这样y,p可以直接复制粘贴，但Shift+Insert不好用了
+"set clipboard=unnamedplus
+
+set t_Co=256        " need CSApprox plugin
+syntax enable
+set background=dark
+let g:solarized_termcolors=256
+"colorscheme desert
+colorscheme solarized
+
+" 在确定高亮法则的时候使用多种探索方法来节约时间，有时这会造成一些故障。
+" 查看:h syn-sync 可以得到更多细节
+autocmd BufEnter * : syn sync minlines=500
+
+" file type related
+filetype plugin indent on
+autocmd FileType markdown,yaml,html,css,less,javascript,typescript,vue setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType yaml setlocal indentkeys-=0#
+autocmd FileType make,go set noexpandtab
+
+" 定义快捷键的前缀，即<Leader>
+"let mapleader="\"
+
+" reload .vimrc
+nnoremap <Leader>l :source ~/.vimrc<CR>
+nnoremap <Leader>r :!genfiletags.sh<CR>
+nnoremap <Leader>t :tabe<CR>
+nnoremap <Leader>s :split<CR>
+" 覆盖了q寄存器录制功能
+nnoremap q :pclose<CR>:cclose<CR>
+nnoremap <C-Q> :q<CR>
+nnoremap <C-C> "+y
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-H> <C-W>h
+nnoremap <C-L> <C-W>l
+nnoremap + <C-W>+
+nnoremap - <C-W>-
+inoremap ( ()<Esc>i
+inoremap [ []<Esc>i
+inoremap { {}<Esc>i
+" Insert mode, Completing file name
+inoremap <C-F> <C-X><C-F>
+" Insert mode, Omni Completing
+inoremap <C-O> <C-X><C-O>
+" auto close preview window when selected
+autocmd CompleteDone * pclose
+
+" Universal CTags
+" 先在文件的所在目录下找 .tags，找不到的话向上递归到父目录查找
+set tags=./.tags;,.tags
+"set tags+=/usr/include/tags
+nnoremap <Space> <C-W>}
+
+" cscope
+if has("cscope")
+    "set csprg=/usr/bin/cscope
+    set csto=1              " 0先查找cscope数据库，1先查找tag文件
+    set cst                 " 同时搜索tag文件以及cscope数据库
+    set cscopequickfix=s-,c-,d-,i-,t-,e-    " can use :cw
+    if filereadable(".cscope.out")
+        cs add .cscope.out
+    endif
+endif
+" Esc 相当于 Alt键, 查找本定义
+nnoremap <Esc>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+" 查找调用本函数的函数
+nnoremap <Esc>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+
+" quickfix window
+nnoremap <F7> :cp<CR>
+nnoremap <F8> :cn<CR>
+
+" NERD Tree
+nnoremap <F3> :NERDTreeToggle<CR>
+let NERDTreeWinSize=40
+let NERDTreeWinPos='left'
+let NERDTreeMouseMode=2
+let NERDTreeIgnore=['\.pyc$', '__pycache__', '\.o$', '^.cscope', '^.tags$']
+" automatically open
+"autocmd VimEnter * NERDTree
+
+" tagbar: Space显示原型，o打开展开，p跳转光标停留
+nnoremap <F4> :TagbarToggle<CR>
+let g:tagbar_sort = 0   " 按文件顺序，不按name排序
+
+" LookupFile <F5>
+let g:LookupFile_MinPatLength = 2               " 最少输入2个字符才开始查找
+let g:LookupFile_PreserveLastPattern = 0        " 不保存上次查找的字符串
+let g:LookupFile_PreservePatternHistory = 1     " 保存查找历史
+let g:LookupFile_AlwaysAcceptFirst = 1          " 回车打开第一个匹配项目
+let g:LookupFile_AllowNewFiles = 0              " 不允许创建不存在的文件
+if filereadable("./.filenametags")              " 设置tag文件的名字, 默认ctags
+    let g:LookupFile_TagExpr = '"./.filenametags"'
+endif
+
+" grepper.vim
+" 支持多种tool，Tab键可切换tool
+" ag 命令 sudo pacman -S the_silver_searcher
+nnoremap <Leader>g :Grepper -tool ag<cr>
+nnoremap <Leader>G :Grepper -tool git<cr>
+" https://github.com/mhinz/vim-grepper/wiki/using-the-operator
+" normal mode: gsw, gsiw
+" visual mode: gs, it uses the current selection
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
+let g:grepper = {
+    \ 'highlight': 1,
+    \ 'tools': ['git', 'ag', 'rg', 'grep'],
+    \ 'ag': {
+    \   'grepprg': 'ag --vimgrep -t',
+    \ },
+    \ 'rg': {
+    \   'grepprg': 'rg -H --no-heading --vimgrep --no-ignore',
+    \ }}
+
+" a.vim 切换 .h/.c
+nnoremap <silent> <F12> :A<CR>
+
+" fcitx.vim 当在插入状态输入中文时，回到正常状态，不用切换输入法就可以进行命令操作
+" fcitx.vim 会自动检测vim的模式，normal模式下不启用中文输入
+set ttimeoutlen=100
+
+" vim-markdown
+let g:vim_markdown_folding_disabled = 1
+
+" vim-go
+":GoInstallBinaries 安装相关依赖即可使用
+
+" vim-plug 安装插件，:PlugUpdate
+call plug#begin('~/.vim/plugged')
+Plug 'git@github.com:preservim/nerdtree.git'
+Plug 'git@github.com:preservim/tagbar.git'
+"Plug 'git@github.com:preservim/nerdcommenter.git'
+Plug 'git@github.com:vim-scripts/lookupfile.git'
+Plug 'git@github.com:clones/vim-genutils.git'
+Plug 'git@github.com:altercation/vim-colors-solarized.git'
+Plug 'git@github.com:godlygeek/csapprox.git'
+Plug 'git@github.com:mhinz/vim-grepper.git'
+Plug 'git@github.com:lilydjwg/fcitx.vim.git', { 'branch': 'fcitx5' }
+"Plug 'git@github.com:gcmt/wildfire.vim.git'
+Plug 'git@github.com:vim-scripts/a.vim.git'
+Plug 'git@github.com:plasticboy/vim-markdown.git'
+Plug 'git@github.com:bfrg/vim-cpp-modern.git'
+"Plug 'git@github.com:davidhalter/jedi-vim.git'
+Plug 'git@github.com:fatih/vim-go.git'
+Plug 'git@github.com:hashivim/vim-terraform.git'
+Plug 'git@github.com:leafOfTree/vim-vue-plugin.git'
+call plug#end()
