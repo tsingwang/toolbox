@@ -58,7 +58,7 @@ nnoremap <Leader>s :split<CR>
 " 覆盖了q寄存器录制功能
 nnoremap q :pclose<CR>:cclose<CR>
 nnoremap <C-Q> :q<CR>
-nnoremap <C-C> "+y
+vnoremap <C-C> "+y
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-H> <C-W>h
