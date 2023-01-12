@@ -126,8 +126,8 @@ endif
 " grepper.vim
 " 支持多种tool，Tab键可切换tool
 " ag 命令 sudo pacman -S the_silver_searcher
-nnoremap <Leader>g :Grepper -tool ag<cr>
-nnoremap <Leader>G :Grepper -tool git<cr>
+nnoremap <Leader>g :Grepper -tool git<cr>
+nnoremap <Leader>G :Grepper -tool ag<cr>
 " https://github.com/mhinz/vim-grepper/wiki/using-the-operator
 " normal mode: gsw, gsiw
 " visual mode: gs, it uses the current selection
