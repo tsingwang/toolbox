@@ -55,6 +55,7 @@ nnoremap <Leader>l :source ~/.vimrc<CR>
 nnoremap <Leader>r :!genfiletags.sh<CR>
 nnoremap <Leader>t :tabe<CR>
 nnoremap <Leader>s :split<CR>
+nnoremap s :w<CR>
 " 覆盖了q寄存器录制功能
 nnoremap q :pclose<CR>:cclose<CR>
 nnoremap <C-Q> :q<CR>
@@ -167,7 +168,6 @@ Plug 'git@github.com:altercation/vim-colors-solarized.git'
 Plug 'git@github.com:godlygeek/csapprox.git'
 Plug 'git@github.com:mhinz/vim-grepper.git'
 Plug 'git@github.com:lilydjwg/fcitx.vim.git', { 'branch': 'fcitx5' }
-"Plug 'git@github.com:gcmt/wildfire.vim.git'
 Plug 'git@github.com:vim-scripts/a.vim.git'
 Plug 'git@github.com:plasticboy/vim-markdown.git'
 Plug 'git@github.com:bfrg/vim-cpp-modern.git'
