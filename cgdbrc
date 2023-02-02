@@ -1,0 +1,4 @@
+set ignorecase
+set wso=vertical
+set hls
+map <F9> :until<cr>
