@@ -1,0 +1,11 @@
+# https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner
+# helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+# helm upgrade --install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner -n infra -f nfs-values.yaml
+
+nfs:
+  server: nfs-server-ip
+  path: /nfs-storage
+
+storageClass:
+  archiveOnDelete: false
+  onDelete: delete

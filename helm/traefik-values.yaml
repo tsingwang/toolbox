@@ -1,0 +1,42 @@
+# https://github.com/traefik/traefik-helm-chart
+# helm repo add traefik https://traefik.github.io/charts
+# helm upgrade --install traefik traefik/traefik -n infra -f traefik-values.yaml
+
+ingressRoute:
+  dashboard:
+    enabled: true
+    matchRule: Host(`traefik.domain.com`)
+    entryPoints: ["web"]
+    #entryPoints: ["websecure"]
+    #middlewares:
+    #  - name: traefik-dashboard-auth
+
+logs:
+  access:
+    enabled: true
+
+affinity: {}
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: '{{ template "traefik.name" . }}'
+            app.kubernetes.io/instance: '{{ .Release.Name }}-{{ .Release.Namespace }}'
+        topologyKey: kubernetes.io/hostname
+
+#extraObjects:
+#  - apiVersion: v1
+#    kind: Secret
+#    metadata:
+#      name: traefik-dashboard-auth-secret
+#    type: kubernetes.io/basic-auth
+#    stringData:
+#      username: admin
+#      password: changeme
+#  - apiVersion: traefik.containo.us/v1alpha1
+#    kind: Middleware
+#    metadata:
+#      name: traefik-dashboard-auth
+#    spec:
+#      basicAuth:
+#        secret: traefik-dashboard-auth-secret
