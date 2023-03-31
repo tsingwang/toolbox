@@ -1,0 +1,26 @@
+[user]
+    name = Tsing Wang
+    email = tsing.nix@outlook.com
+[core]
+    editor = vim
+    autocrlf = input
+    excludesfile = ~/.gitignore
+[merge]
+    tool = vimdiff
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    ui = auto
+[log]
+    date = iso
+[alias]
+    st = status
+    co = checkout
+    ci = commit
+    br = branch
+    tags = tag --sort=taggerdate --format '%(taggerdate:short) %(refname:short) %(subject)'
+[oh-my-zsh]
+    hide-info = 1
+    hide-status = 1
+    hide-dirty = 1

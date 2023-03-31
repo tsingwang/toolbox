@@ -1,0 +1,14 @@
+.svn
+*.swp
+*.pyc
+__pycache__
+.venv
+venv
+cscope.*
+.cscope.*
+tags
+.tags
+.filenametags
+.helmignore
+db.sqlite3
+node_modules

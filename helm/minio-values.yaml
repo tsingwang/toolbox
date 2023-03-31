@@ -1,0 +1,22 @@
+# https://github.com/minio/minio/tree/master/helm/minio
+# helm repo add minio https://charts.min.io/
+# helm upgrade --install minio minio/minio -n infra -f minio-values.yaml
+
+mode: standalone
+rootUser: "minioadmin"
+rootPassword: "minioadmin"
+users:
+  - accessKey: minioadmin
+    secretKey: minioadmin
+persistence:
+  enabled: true
+  size: 200Gi
+  storageClass: local-path
+consoleIngress:
+  enabled: true
+  path: /
+  hosts:
+    - minio.domain.com
+resources:
+  requests:
+    memory: 8Gi
