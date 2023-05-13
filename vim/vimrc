@@ -55,6 +55,7 @@ nnoremap <Leader>l :source ~/.vimrc<CR>
 nnoremap <Leader>r :!genfiletags.sh<CR>
 nnoremap <Leader>t :tabe<CR>
 nnoremap <Leader>s :split<CR>
+nnoremap <Leader>v :vsplit<CR>
 nnoremap s :w<CR>
 " 覆盖了q寄存器录制功能
 nnoremap q :pclose<CR>:cclose<CR>
