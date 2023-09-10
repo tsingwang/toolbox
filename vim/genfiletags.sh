@@ -10,7 +10,8 @@ ctags -R --fields=+niazS --extras=+q --c++-kinds=+px --c-kinds=+px \
 echo -e "!_TAG_FILE_SORTED\t2\t/2=foldcase/" > .filenametags
 find . ! -path "*node_modules*" ! -path "*dist*" \
     -regex '.*\.\(md\|sh\|h\|c\|cc\|cpp\|java\|py\|go\|js\|ts\|tsx\|vue\|html\|css\|json\|yml\|yaml\)' \
-    -type f -printf "%f\t%p\t1\n" | sort -f >> .filenametags
+    -type f -exec sh -c 'printf "%s\t%s\t1\n" "$(basename "{}")" "{}"' \; | sort -f >> .filenametags
+    #-type f -printf "%f\t%p\t1\n" | sort -f >> .filenametags
 
 while getopts "c" OPTION; do
     case $OPTION in
