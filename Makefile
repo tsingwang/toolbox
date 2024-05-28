@@ -1,5 +1,5 @@
 .PHONY: install
-install: awesome gdb git python terraform vim
+install: awesome gdb git python scripts terraform vim
 
 .PHONY: awesome
 awesome:
@@ -20,6 +20,10 @@ git:
 python:
 	mkdir -p ~/.pip
 	ln -sf $(shell pwd)/python/pip.conf ~/.pip/pip.conf
+
+.PHONY: scripts
+scripts:
+	ln -sf $(shell pwd)/scripts/timing_http.sh ~/.local/bin/
 
 .PHONY: terraform
 terraform:

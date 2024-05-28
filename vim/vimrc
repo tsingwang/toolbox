@@ -150,7 +150,7 @@ nnoremap <silent> <F12> :A<CR>
 
 " fcitx.vim 当在插入状态输入中文时，回到正常状态，不用切换输入法就可以进行命令操作
 " fcitx.vim 会自动检测vim的模式，normal模式下不启用中文输入
-set ttimeoutlen=100
+set ttimeoutlen=50
 
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
