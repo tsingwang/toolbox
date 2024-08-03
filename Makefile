@@ -24,6 +24,8 @@ python:
 .PHONY: scripts
 scripts:
 	ln -sf $(shell pwd)/scripts/timing_http.sh ~/.local/bin/
+	ln -sf $(shell pwd)/scripts/photo_classify.py ~/.local/bin/
+	ln -sf $(shell pwd)/scripts/photo_rotate.py ~/.local/bin/
 
 .PHONY: terraform
 terraform:
